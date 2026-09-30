@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Year Cabins — Dec 30, 2026 → Jan 2, 2027</title>
+<style>
+  :root { --bg:#f7f5f0; --card:#fff; --ink:#1f2937; --muted:#6b7280; --accent:#b3541e; --line:#e5e0d5; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); margin:0; padding:24px; }
+  h1 { font-size:1.5rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 16px; font-size:.9rem; }
+  .controls { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .controls input[type=text] { padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:.9rem; min-width:220px; }
+  .controls select { padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:.9rem; }
+  .controls label { font-size:.85rem; display:flex; gap:6px; align-items:center; cursor:pointer; }
+  .count { margin-left:auto; color:var(--muted); font-size:.85rem; }
+  .wrap { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; min-width:1500px; font-size:.82rem; }
+  thead th { position:sticky; top:0; background:#efe9dc; text-align:left; padding:10px 8px; white-space:nowrap; cursor:pointer; user-select:none; border-bottom:2px solid var(--line); z-index:1; }
+  thead th:hover { background:#e7dfcd; }
+  thead th .arrow { color:var(--accent); font-size:.7rem; margin-left:4px; }
+  tbody td { padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  tbody tr:hover { background:#faf7f0; }
+  td.num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  th.num { text-align:right; }
+  .name a { color:var(--accent); font-weight:600; text-decoration:none; }
+  .name a:hover { text-decoration:underline; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:.72rem; font-weight:600; white-space:nowrap; }
+  .snow-High { background:#dbeafe; color:#1d4ed8; }
+  .snow-Medium { background:#fef3c7; color:#92400e; }
+  .snow-Low { background:#fee2e2; color:#991b1b; }
+  .best { font-weight:700; color:#166534; }
+  .note { color:var(--muted); font-size:.76rem; }
+  .foot { color:var(--muted); font-size:.78rem; margin-top:12px; }
+</style>
+</head>
+<body>
+<h1>New Year cabins — Dec 30, 2026 → Jan 2, 2027</h1>
+<p class="sub">46 listings across Airbnb, Vrbo &amp; Booking.com · 3-night totals incl. fees · private hot tub on every listing · click any column header to sort</p>
+<div class="controls">
+  <input type="text" id="q" placeholder="Search name, town, notes…">
+  <select id="area"><option value="">All areas</option></select>
+  <label><input type="checkbox" id="fits11"> Fits 11 (max guests ≥ 11)</label>
+  <label><input type="checkbox" id="under35"> Under $3,500</label>
+  <span class="count" id="count"></span>
+</div>
+<div class="wrap">
+<table id="t">
+  <thead><tr>
+    <th data-k="name">Cabin</th>
+    <th data-k="area">Area</th>
+    <th data-k="rating">Rating</th>
+    <th data-k="sleeps" class="num">Sleeps</th>
+    <th data-k="maxg" class="num">Max guests</th>
+    <th data-k="bd" class="num">Bd / Ba</th>
+    <th data-k="air" class="num">Airbnb $</th>
+    <th data-k="vrbo" class="num">Vrbo $</th>
+    <th data-k="book" class="num">Booking $</th>
+    <th data-k="best" class="num">Best $</th>
+    <th data-k="fp">Fireplace</th>
+    <th data-k="snow">Snow</th>
+    <th data-k="drive">Drive</th>
+    <th data-k="notes">Notes</th>
+  </tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+</div>
+<p class="foot">Prices are 3-night totals (Dec 30 → Jan 2) as shown on each platform on Sep 30, 2026, fees included; Booking.com totals exclude ~10% tax. Ratings shown as listed (Airbnb /5, Vrbo &amp; Booking /10). Snow = expected snow at the cabin door: High ≈ pass-level, Medium ≈ usually snowy but variable, Low ≈ often rain. Drive = from Seattle via I-90/US-2.</p>
+<script>
+const D = [
+["FUNcadia Mtn View Home","Ronald",4.97,"4.97 ★ (67)",11,11,4,3,[3302,"https://www.airbnb.com/rooms/50229185"],0,0,"Fire pit","Medium","1h30","Past guest: “11 never felt too small”; 4 wooded acres"],
+["Bear Pine Lodge","Cle Elum",4.82,"4.82 ★ (112)",11,11,5,3,[2716,"https://www.airbnb.com/rooms/53474551"],0,0,"Wood stove","Medium","1h20","Kids’ bunk rooms, media room"],
+["Cozy Cabin + sauna","Ronald",4.83,"4.83 ★ (29)",12,15,3,2.5,[2398,"https://www.airbnb.com/rooms/47991057"],[1885,"https://www.vrbo.com/2146918"],0,"Fire pit","Medium","1h30","Sauna; 1.5 wooded acres; no pets"],
+["Suncadia Golf","Cle Elum",4.83,"4.83 ★ (63)",13,13,3,3.5,[3000,"https://www.airbnb.com/rooms/960042345159645209"],[3075,"https://www.vrbo.com/9861174ha"],[2983,"https://www.booking.com/hotel/us/stunning-cle-elum-retreat-with-fire-pit-and-hot-tub.html"],"Fire pits","Medium","1h25","Fits 11 outright; PS5 game room"],
+["Outpost at Roslyn Ridge","Ronald",5.0,"5.0 ★ (33)",8,8,3,2,[1875,"https://www.airbnb.com/rooms/1122556442872267519"],0,0,"Indoor+outdoor","Medium","1h30","Best Airbnb price; host OK needed for 11"],
+["Ellie & Em’s","Roslyn",4.99,"4.99 ★ (85)",8,8,3,2,[2072,"https://www.airbnb.com/rooms/47788460"],0,0,"Gas","Medium","1h30","Steps to downtown shops"],
+["Kirby’s Cabin","Ronald",4.97,"4.97 ★ (189)",8,8,3,3,[2450,"https://www.airbnb.com/rooms/47803412"],0,0,"Fire pit","Medium","1h30","Driveway slippery in winter"],
+["Juniper Lodge","Ronald",4.97,"4.97 ★ (111)",8,8,3,2,[2275,"https://www.airbnb.com/rooms/1203792835826965679"],0,0,"Wood","Medium","1h30","Private beach on Lake Cle Elum"],
+["The Nest at Suncadia","Cle Elum",4.88,"4.88 ★ (157)",9,9,3,3,[2580,"https://www.airbnb.com/rooms/685387452913544550"],0,0,"Fire pit","Medium","1h25","Backs to trees & creek"],
+["FarmhouseDreams","Roslyn",4.96,"4.96 ★ (211)",10,10,3,2,[3406,"https://www.airbnb.com/rooms/24375830"],0,0,"—","Medium","1h30","Heated patio, Xbox bunk room"],
+["Stevens Pass Chalet","Skykomish",4.95,"4.95 ★ (117)",12,12,3,2,[2568,"https://www.airbnb.com/rooms/15673427"],0,0,"Fire pit","Medium","1h20","Fits 11; 4WD recommended; 20 min to pass"],
+["Millie’s","Baring",4.95,"4.95 ★ (43)",8,8,3,2,[1773,"https://www.airbnb.com/rooms/742692397751178111"],0,0,"Wood+gas","Medium","1h20","Cheapest Stevens; steep stairs"],
+["Cozy chalet (Baring)","Baring",4.97,"4.97 ★ (123)",8,8,3,2,[2275,"https://www.airbnb.com/rooms/52886779"],0,0,"—","Medium","1h20","Hot tub tucked in forest"],
+["Raven’s Retreat","Index",4.91,"4.91 ★ (22)",8,8,4,1.5,[2182,"https://www.airbnb.com/rooms/1298109249747384539"],0,0,"Gas","Medium","1h25","Covered hot tub; snowiest town in corridor"],
+["Riverfront cabin","Gold Bar",4.98,"4.98 ★ (108)",8,8,3,2,[2024,"https://www.airbnb.com/rooms/760300248861804241"],0,0,"—","Low","1h15","River views; often rain not snow"],
+["Big Bend River Cabin","Gold Bar",4.94,"4.94 ★ (108)",8,8,3,2,[2301,"https://www.airbnb.com/rooms/960866073836301145"],0,0,"—","Low","1h15","Private beach"],
+["Retreat at River’s Edge","Gold Bar",4.89,"4.89 ★ (45)",11,12,5,2,[3435,"https://www.airbnb.com/rooms/1396015636166239939"],0,0,"Fire pit","Low","1h15","Fits 11; river cabin"],
+["M House","Gold Bar",4.9,"4.9 ★ (89)",10,10,4,2.5,[3229,"https://www.airbnb.com/rooms/917683143896059596"],0,0,"Fire pit","Low","1h15","Game room, Mt Index views"],
+["Reflections Lodge","Ashford",5.0,"5.0 ★ (55)",14,14,4,3,[2855,"https://www.airbnb.com/rooms/1331857415223463659"],0,0,"Fire pit","High","2h00","Heavy snow; no weather refunds"],
+["95 Acre Retreat","Eatonville",4.98,"4.98 ★ (51)",8,8,3,2.5,[2140,"https://www.airbnb.com/rooms/53033372"],0,0,"Gas ×2","Medium","1h30","95 forested acres; generator on site"],
+["Fall Getaway","Auburn",5.0,"5.0 ★ (30)",11,11,4,3.5,[2957,"https://www.airbnb.com/rooms/1407459061190856047"],0,0,"Fire pit","Low","0h50","Fits 11; easy access, least snow"],
+["Milly de Villette","Elbe",4.97,"4.97 ★ (62)",8,8,4,2,[2214,"https://www.airbnb.com/rooms/1011069603599837837"],0,0,"—","High","1h45","Historic 1920 home"],
+["Elk Camp","Packwood",4.94,"4.94 ★ (16)",8,8,4,2,[1996,"https://www.airbnb.com/rooms/1423283496902443339"],0,0,"Fire pit","High","2h30","A-frame; farthest drive"],
+["North Fork Retreat (both homes)","Snoqualmie",5.0,"5.0 ★ (12)",15,15,6,3.5,[3100,"https://www.airbnb.com/rooms/1501117941904536994"],0,0,"Fire pit+sauna","Medium","0h45","Two homes; steep A-frame stairs"],
+["North Fork log cabin","Snoqualmie",4.83,"4.83 ★ (6)",10,10,4,2.5,[2237,"https://www.airbnb.com/rooms/1496828740799222446"],0,0,"Fire pit","Medium","0h45","Sauna; riverside"],
+["Lakeside Retreat","Graham",4.95,"4.95 ★ (20)",8,8,4,2,[1401,"https://www.airbnb.com/rooms/1587488366491771170"],0,0,"Yes","Low","0h50","Cheapest overall; lakefront"],
+["SKI Retreat Conifer","Snoqualmie Pass",4.8,"4.8 ★ (110)",10,10,4,2.5,[3713,"https://www.airbnb.com/rooms/22252311"],0,0,"Rock fp","High","0h55","Ski-in/ski-out; only true on-pass cabin"],
+["Mountain House Getaway","Easton",4.93,"4.93 ★ (42)",8,8,3,2,[2358,"https://www.airbnb.com/rooms/1497247902466134154"],0,0,"—","Medium","1h10","Lakefront; 15 min to pass"],
+["Riverfront Gem","North Bend",4.86,"4.86 ★ (28)",12,12,4,2.5,[3338,"https://www.airbnb.com/rooms/1571484022623274779"],0,0,"Fire pit","Medium","0h40","River deck; tight for 11"],
+["4BR Suncadia (Casago)","Cle Elum",5.0,"5.0 ★ (1)",16,16,4,3,[3002,"https://www.airbnb.com/rooms/1745032667590087561"],0,0,"Fire pit","Medium","1h25","New listing, 1 review"],
+["Suncadia Meadows","Cle Elum",5.0,"5.0 ★ (44)",12,12,4,3,[5604,"https://www.airbnb.com/rooms/1530803798156516997"],0,0,"Fire pit","Medium","1h25","Most kid gear; pricey"],
+["Alpine Luxury Escape","Cle Elum",4.95,"4.95 ★ (20)",12,12,4,3.5,[5101,"https://www.airbnb.com/rooms/1535587758918961980"],0,0,"—","Medium","1h25","2nd-story hot tub"],
+["Legacy Landing","Cle Elum",4.98,"4.98 ★ (63)",16,16,4,3.5,[6621,"https://www.airbnb.com/rooms/1242334728368968360"],0,0,"Fire pit","Medium","1h25","Arcade room"],
+["Goat Mountain Lodge","Ronald",4.92,"4.92 ★ (127)",14,14,5,4,[4663,"https://www.airbnb.com/rooms/53974181"],0,0,"Yes","Medium","1h30","Dining for 10"],
+["Golden Timber","Cle Elum",4.92,"4.92 ★ (24)",14,14,5,4,[8963,"https://www.airbnb.com/rooms/1577301055627643299"],0,0,"Gas","Medium","1h25","Premium pick"],
+["No. 5 Lookout","Cle Elum",5.0,"5.0 ★ (19)",11,11,5,3,[6895,"https://www.airbnb.com/rooms/1580832328425288675"],0,0,"Stone fp","Medium","1h25","Arcade/bunk lounge"],
+["Lake-view cabin","Cle Elum",4.9,"9.8/10 (109)",10,10,3,1.5,0,[1339,"https://www.vrbo.com/890180"],0,"Gas stone","Medium","1h25","Cheapest Vrbo; snow gates possible"],
+["Spacious 4BD Suncadia","Cle Elum",5.0,"10/10 (1)",10,10,4,3.5,0,[2506,"https://www.vrbo.com/5158141"],0,"Gas stone","Medium","1h25","1 review; plowed resort roads"],
+["Ronald Retreat","Ronald",5.0,"10/10 (3)",9,9,3,2.5,0,[2247,"https://www.vrbo.com/20185503ha"],[2116,"https://www.booking.com/hotel/us/hot-tub-and-game-room-ronald-retreat-2-mi-to-lake.html"],"Yes","Medium","1h30","Game room; cheaper on Booking"],
+["3BR Mountain Views","Cle Elum",0,"New",10,10,3,1.5,0,[1949,"https://www.vrbo.com/5463519"],0,"Yes","Medium","1h25","No reviews yet"],
+["Ronald Vacation Rental","Ronald",4.9,"9.8/10 (30)",8,8,3,2.5,0,[1717,"https://www.vrbo.com/9793229ha"],[1617,"https://www.booking.com/hotel/us/ronald-vacation-rental-near-suncadia-resort.html"],"Gas","Medium","1h30","Garage parking; cheaper on Booking"],
+["Luxury Suncadia Retreat","Cle Elum",4.7,"9.4/10 (32)",8,8,3,2.5,0,[2797,"https://www.vrbo.com/9517156ha"],[2669,"https://www.booking.com/hotel/us/luxurious-suncadia-resort-retreat-with-hot-tub.html"],"Stone","Medium","1h25","Cheaper on Booking"],
+["Lakefront Log Cabin","Ronald",0,"No reviews",8,8,4,3,0,0,[2481,"https://www.booking.com/hotel/us/lakefront-log-cabin-with-hot-tub-huge-game-room-and-direct-access-to-cle-elum-la.html"],"—","Medium","1h30","Covered hot tub in woods"],
+["Golf Getaway","Cle Elum",0,"No reviews",10,10,4,5,0,0,[3350,"https://www.booking.com/hotel/us/golf-getaway-with-hot-tub-course-views-in-cle-elum.html"],"Yes","Medium","1h25","Non-refundable; over budget w/ tax"],
+["Mountain Retreat (Bk)","Ronald",5.0,"10/10 (1)",8,8,3,2,0,0,[1856,"https://www.booking.com/hotel/us/mountain-retreat-with-hot-tub-game-room-and-yard-home.html"],"Unconfirmed","Medium","1h30","Hot tub unconfirmed; non-refundable"],
+["Hawthorn Cabin","Lake Easton",3.5,"7.0/10 (3)",8,8,3,2,0,0,[1390,"https://www.booking.com/hotel/us/hawthorn-cabin.html"],"—","Medium","1h15","Request-to-book; beachfront"]
+];
+const AREAS = {"Ronald":"Ronald / Roslyn / Cle Elum","Roslyn":"Ronald / Roslyn / Cle Elum","Cle Elum":"Ronald / Roslyn / Cle Elum","Easton":"Ronald / Roslyn / Cle Elum","Suncadia":"Ronald / Roslyn / Cle Elum","Snoqualmie Pass":"Snoqualmie Pass","Skykomish":"Stevens Corridor","Baring":"Stevens Corridor","Index":"Stevens Corridor","Gold Bar":"Stevens Corridor","Ashford":"Mt Rainier Area","Eatonville":"Mt Rainier Area","Elbe":"Mt Rainier Area","Packwood":"Mt Rainier Area","Snoqualmie":"Snoqualmie Valley","North Bend":"Snoqualmie Valley","Auburn":"Other WA","Graham":"Other WA","Lake Easton":"Other WA"};
+let rows = D.map(r=>{
+  const prices=[[r[8],"airbnb"],[r[9],"vrbo"],[r[10],"booking"]].filter(p=>Array.isArray(p[0])&&p[0][0]>0);
+  const best = prices.length? prices.reduce((a,b)=>a[0][0]<b[0][0]?a:b) : null;
+  return {name:r[0], town:r[1], area:AREAS[r[1]]||r[1], rating:r[2], rtxt:r[3], sleeps:r[4], maxg:r[5], bd:r[6], ba:r[7],
+    air:r[8]||null, vrbo:r[9]||null, book:r[10]||null, best:best?best[0][0]:null, bestUrl:best?best[0][1]:null,
+    fp:r[11], snow:r[12], drive:r[13], notes:r[14]};
+});
+const areaSel = document.getElementById('area');
+[...new Set(rows.map(r=>r.area))].sort().forEach(a=>{ const o=document.createElement('option'); o.value=a; o.textContent=a; areaSel.appendChild(o); });
+let sortK='best', sortD=1;
+const fmt$=n=>n==null?"—":"$"+n.toLocaleString();
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const ar=areaSel.value, f11=document.getElementById('fits11').checked, u35=document.getElementById('under35').checked;
+  let list=rows.filter(r=>
+    (!q || (r.name+" "+r.town+" "+r.notes+" "+r.fp).toLowerCase().includes(q)) &&
+    (!ar || r.area===ar) && (!f11 || r.maxg>=11) && (!u35 || (r.best!=null && r.best<3500)));
+  list.sort((a,b)=>{
+    let va,vb;
+    if(sortK==='name'||sortK==='area'||sortK==='fp'||sortK==='snow'||sortK==='drive'||sortK==='notes'){ va=(a[sortK]||"").toLowerCase(); vb=(b[sortK]||"").toLowerCase(); return va<vb?-sortD:va>vb?sortD:0; }
+    va=a[sortK]; vb=b[sortK];
+    va=(va==null||va===0)?(sortK==='rating'?-1:Infinity):va;
+    vb=(vb==null||vb===0)?(sortK==='rating'?-1:Infinity):vb;
+    return (va-vb)*sortD;
+  });
+  document.getElementById('count').textContent=list.length+" of "+rows.length+" cabins";
+  document.getElementById('rows').innerHTML=list.map(r=>{
+    const link=r.bestUrl?`<a href="${r.bestUrl}" target="_blank" rel="noopener">${r.name}</a>`:r.name;
+    return `<tr><td class="name">${link}</td><td>${r.town}</td><td style="white-space:nowrap">${r.rtxt}</td>
+    <td class="num">${r.sleeps}</td><td class="num">${r.maxg}</td><td class="num">${r.bd} / ${r.ba}</td>
+    <td class="num">${fmt$(r.air&&r.air[0])}</td><td class="num">${fmt$(r.vrbo&&r.vrbo[0])}</td><td class="num">${fmt$(r.book&&r.book[0])}</td>
+    <td class="num best">${fmt$(r.best)}</td><td>${r.fp}</td>
+    <td><span class="pill snow-${r.snow}">${r.snow}</span></td><td style="white-space:nowrap">${r.drive}</td>
+    <td class="note">${r.notes}</td></tr>`;
+  }).join('');
+  document.querySelectorAll('thead th').forEach(th=>{
+    const k=th.dataset.k; th.querySelector('.arrow')?.remove();
+    if(k===sortK){ const s=document.createElement('span'); s.className='arrow'; s.textContent=sortD>0?'▲':'▼'; th.appendChild(s); }
+  });
+}
+document.querySelectorAll('thead th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;
+  if(sortK===k) sortD*=-1; else { sortK=k; sortD=(k==='name'||k==='area'||k==='fp'||k==='snow')?1:-1; }
+  render();
+}));
+['q','area','fits11','under35'].forEach(id=>document.getElementById(id).addEventListener('input',render));
+render();
+</script>
+</body>
+</html>
