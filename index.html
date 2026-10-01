@@ -37,7 +37,7 @@
 </head>
 <body>
 <h1>New Year cabins — Dec 30, 2026 → Jan 2, 2027</h1>
-<p class="sub">46 listings across Airbnb, Vrbo &amp; Booking.com · 3-night totals incl. fees · private hot tub on every listing · click any column header to sort</p>
+<p class="sub">41 listings across Airbnb, Vrbo &amp; Booking.com · 3-night totals incl. fees · private hot tub on every listing · click any column header to sort</p>
 <div class="controls">
   <input type="text" id="q" placeholder="Search name, town, notes…">
   <select id="area"><option value="">All areas</option></select>
@@ -66,7 +66,7 @@
   <tbody id="rows"></tbody>
 </table>
 </div>
-<p class="foot">Prices are 3-night totals (Dec 30 → Jan 2) as shown on each platform on Sep 30, 2026, fees included; Booking.com totals exclude ~10% tax. Ratings shown as listed (Airbnb /5, Vrbo &amp; Booking /10). Snow = expected snow at the cabin door: High ≈ pass-level, Medium ≈ usually snowy but variable, Low ≈ often rain. Drive = from Seattle via I-90/US-2.</p>
+<p class="foot">Prices are 3-night totals (Dec 30 → Jan 2) as shown on each platform on Sep 30, 2026, fees included; Booking.com totals exclude ~10% tax. Ratings shown as listed (Airbnb /5, Vrbo &amp; Booking /10). Snow tiers from historical average December snowfall (NOAA 1991-2020 normals, WRCC stations, WeatherSpark; verified Sep 30, 2026): High ~25"+, Medium ~6-20", Low under ~5". *Ashford sources conflict. Drive = from Seattle via I-90/US-2.</p>
 <script>
 const D = [
 ["FUNcadia Mtn View Home","Ronald",4.97,"4.97 ★ (67)",11,11,4,3,[3302,"https://www.airbnb.com/rooms/50229185"],0,0,"Fire pit","Medium","1h30","Past guest: “11 never felt too small”; 4 wooded acres"],
@@ -99,12 +99,7 @@ const D = [
 ["Mountain House Getaway","Easton",4.93,"4.93 ★ (42)",8,8,3,2,[2358,"https://www.airbnb.com/rooms/1497247902466134154"],0,0,"—","Medium","1h10","Lakefront; 15 min to pass"],
 ["Riverfront Gem","North Bend",4.86,"4.86 ★ (28)",12,12,4,2.5,[3338,"https://www.airbnb.com/rooms/1571484022623274779"],0,0,"Fire pit","Medium","0h40","River deck; tight for 11"],
 ["4BR Suncadia (Casago)","Cle Elum",5.0,"5.0 ★ (1)",16,16,4,3,[3002,"https://www.airbnb.com/rooms/1745032667590087561"],0,0,"Fire pit","Medium","1h25","New listing, 1 review"],
-["Suncadia Meadows","Cle Elum",5.0,"5.0 ★ (44)",12,12,4,3,[5604,"https://www.airbnb.com/rooms/1530803798156516997"],0,0,"Fire pit","Medium","1h25","Most kid gear; pricey"],
-["Alpine Luxury Escape","Cle Elum",4.95,"4.95 ★ (20)",12,12,4,3.5,[5101,"https://www.airbnb.com/rooms/1535587758918961980"],0,0,"—","Medium","1h25","2nd-story hot tub"],
-["Legacy Landing","Cle Elum",4.98,"4.98 ★ (63)",16,16,4,3.5,[6621,"https://www.airbnb.com/rooms/1242334728368968360"],0,0,"Fire pit","Medium","1h25","Arcade room"],
 ["Goat Mountain Lodge","Ronald",4.92,"4.92 ★ (127)",14,14,5,4,[4663,"https://www.airbnb.com/rooms/53974181"],0,0,"Yes","Medium","1h30","Dining for 10"],
-["Golden Timber","Cle Elum",4.92,"4.92 ★ (24)",14,14,5,4,[8963,"https://www.airbnb.com/rooms/1577301055627643299"],0,0,"Gas","Medium","1h25","Premium pick"],
-["No. 5 Lookout","Cle Elum",5.0,"5.0 ★ (19)",11,11,5,3,[6895,"https://www.airbnb.com/rooms/1580832328425288675"],0,0,"Stone fp","Medium","1h25","Arcade/bunk lounge"],
 ["Lake-view cabin","Cle Elum",4.9,"9.8/10 (109)",10,10,3,1.5,0,[1339,"https://www.vrbo.com/890180"],0,"Gas stone","Medium","1h25","Cheapest Vrbo; snow gates possible"],
 ["Spacious 4BD Suncadia","Cle Elum",5.0,"10/10 (1)",10,10,4,3.5,0,[2506,"https://www.vrbo.com/5158141"],0,"Gas stone","Medium","1h25","1 review; plowed resort roads"],
 ["Ronald Retreat","Ronald",5.0,"10/10 (3)",9,9,3,2.5,0,[2247,"https://www.vrbo.com/20185503ha"],[2116,"https://www.booking.com/hotel/us/hot-tub-and-game-room-ronald-retreat-2-mi-to-lake.html"],"Yes","Medium","1h30","Game room; cheaper on Booking"],
@@ -116,13 +111,21 @@ const D = [
 ["Mountain Retreat (Bk)","Ronald",5.0,"10/10 (1)",8,8,3,2,0,0,[1856,"https://www.booking.com/hotel/us/mountain-retreat-with-hot-tub-game-room-and-yard-home.html"],"Unconfirmed","Medium","1h30","Hot tub unconfirmed; non-refundable"],
 ["Hawthorn Cabin","Lake Easton",3.5,"7.0/10 (3)",8,8,3,2,0,0,[1390,"https://www.booking.com/hotel/us/hawthorn-cabin.html"],"—","Medium","1h15","Request-to-book; beachfront"]
 ];
+const SNOW = {
+"Snoqualmie Pass":["High","~27"],"Easton":["High","~37"],"Lake Easton":["High","~37"],
+"Ronald":["Medium","15-19"],"Cle Elum":["Medium","~19"],"Roslyn":["Medium","12-15"],
+"Skykomish":["Medium","12-16"],"Baring":["Medium","~17"],"Index":["Medium","~17"],
+"Ashford":["Medium","12-16*"],"Packwood":["Medium","~6"],
+"North Bend":["Low","~3"],"Snoqualmie":["Low","~2"],"Gold Bar":["Low","~2"],
+"Elbe":["Low","~4"],"Eatonville":["Low","~2"],"Auburn":["Low","~1"],"Graham":["Low","~1"]
+};
 const AREAS = {"Ronald":"Ronald / Roslyn / Cle Elum","Roslyn":"Ronald / Roslyn / Cle Elum","Cle Elum":"Ronald / Roslyn / Cle Elum","Easton":"Ronald / Roslyn / Cle Elum","Suncadia":"Ronald / Roslyn / Cle Elum","Snoqualmie Pass":"Snoqualmie Pass","Skykomish":"Stevens Corridor","Baring":"Stevens Corridor","Index":"Stevens Corridor","Gold Bar":"Stevens Corridor","Ashford":"Mt Rainier Area","Eatonville":"Mt Rainier Area","Elbe":"Mt Rainier Area","Packwood":"Mt Rainier Area","Snoqualmie":"Snoqualmie Valley","North Bend":"Snoqualmie Valley","Auburn":"Other WA","Graham":"Other WA","Lake Easton":"Other WA"};
 let rows = D.map(r=>{
   const prices=[[r[8],"airbnb"],[r[9],"vrbo"],[r[10],"booking"]].filter(p=>Array.isArray(p[0])&&p[0][0]>0);
   const best = prices.length? prices.reduce((a,b)=>a[0][0]<b[0][0]?a:b) : null;
   return {name:r[0], town:r[1], area:AREAS[r[1]]||r[1], rating:r[2], rtxt:r[3], sleeps:r[4], maxg:r[5], bd:r[6], ba:r[7],
     air:r[8]||null, vrbo:r[9]||null, book:r[10]||null, best:best?best[0][0]:null, bestUrl:best?best[0][1]:null,
-    fp:r[11], snow:r[12], drive:r[13], notes:r[14]};
+    fp:r[11], snow:(SNOW[r[1]]||[])[0]||r[12], snowIn:(SNOW[r[1]]||[])[1]||"", drive:r[13], notes:r[14]};
 });
 const areaSel = document.getElementById('area');
 [...new Set(rows.map(r=>r.area))].sort().forEach(a=>{ const o=document.createElement('option'); o.value=a; o.textContent=a; areaSel.appendChild(o); });
@@ -149,7 +152,7 @@ function render(){
     <td class="num">${r.sleeps}</td><td class="num">${r.maxg}</td><td class="num">${r.bd} / ${r.ba}</td>
     <td class="num">${fmt$(r.air&&r.air[0])}</td><td class="num">${fmt$(r.vrbo&&r.vrbo[0])}</td><td class="num">${fmt$(r.book&&r.book[0])}</td>
     <td class="num best">${fmt$(r.best)}</td><td>${r.fp}</td>
-    <td><span class="pill snow-${r.snow}">${r.snow}</span></td><td style="white-space:nowrap">${r.drive}</td>
+    <td style="white-space:nowrap"><span class="pill snow-${r.snow}">${r.snow}</span> <span class="note">${r.snowIn}"/Dec</span></td><td style="white-space:nowrap">${r.drive}</td>
     <td class="note">${r.notes}</td></tr>`;
   }).join('');
   document.querySelectorAll('thead th').forEach(th=>{
